@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { Award, ExternalLink } from "lucide-react"
+import { Award, ExternalLink, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const certifications = [
@@ -49,10 +49,10 @@ export default function CertificationsSection() {
   }
 
   const itemVariants = {
-    hidden: { x: -50, opacity: 0 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
-      x: 0,
       opacity: 1,
+      y: 0,
       transition: {
         type: "spring",
         stiffness: 100,
@@ -78,32 +78,58 @@ export default function CertificationsSection() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="max-w-3xl mx-auto"
+          className="max-w-4xl mx-auto"
         >
-          {certifications.map((cert, index) => (
-            <motion.div
-              key={cert.title}
-              variants={itemVariants}
-              className="card-gradient rounded-xl p-6 mb-8 flex flex-col md:flex-row items-start md:items-center gap-6"
-            >
-              <div className="bg-neon-purple/20 p-4 rounded-full">
-                <Award size={32} className="text-neon-purple" />
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {certifications.map((cert, index) => (
+              <motion.div
+                key={cert.title}
+                variants={itemVariants}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                className="relative bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm border border-neon-purple/20 rounded-xl overflow-hidden shadow-lg group"
+              >
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-blue/0 to-neon-teal/0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
 
-              <div className="flex-1">
-                <h3 className="text-xl font-bold mb-1">{cert.title}</h3>
-                <p className="text-gray-300 mb-2">
-                  {cert.issuer} • {cert.date}
-                </p>
+                <div className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="bg-neon-purple/20 p-3 rounded-full mt-1">
+                      <Award size={24} className="text-neon-purple" />
+                    </div>
 
-                <Button variant="link" className="p-0 h-auto text-neon-blue flex items-center gap-2" asChild>
-                  <a href={cert.link} target="_blank" rel="noopener noreferrer">
-                    View Certificate <ExternalLink size={14} />
-                  </a>
-                </Button>
-              </div>
-            </motion.div>
-          ))}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold mb-1 group-hover:text-neon-purple transition-colors">
+                        {cert.title}
+                      </h3>
+
+                      <div className="flex items-center text-gray-300 mb-3">
+                        <span className="mr-3">{cert.issuer}</span>
+                        <span className="flex items-center text-neon-teal">
+                          <Calendar size={14} className="mr-1" />
+                          {cert.date}
+                        </span>
+                      </div>
+
+                      <Button
+                        variant="ghost"
+                        className="p-0 h-auto text-neon-blue hover:text-neon-purple flex items-center gap-2 group-hover:translate-x-1 transition-transform"
+                        asChild
+                      >
+                        <a href={cert.link} target="_blank" rel="noopener noreferrer">
+                          View Certificate <ExternalLink size={14} />
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+                  <div className="absolute transform rotate-45 bg-neon-purple/20 text-neon-purple w-24 h-5 -right-6 top-6"></div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

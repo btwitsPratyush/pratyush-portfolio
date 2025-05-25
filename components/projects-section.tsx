@@ -14,15 +14,25 @@ const projects = [
     link: "https://symphonious-custard-2ca344.netlify.app",
     github: "https://github.com/btwitsPratyush",
     tags: ["Python", "TensorFlow", "CNN", "Healthcare"],
+    category: "Major Project",
   },
   {
-    title: "FLEX Gym Landing Page",
-    description:
-      "Modern, high-converting landing page for FLEX GYM, featuring dynamic 3D animations and a responsive design",
+    title: "FLEX Gym",
+    description: "Modern, high-converting model website for FLEX GYM, featuring dynamic 3D animations and design",
     image: "/flex-gym-screenshot.jpg",
     link: "https://fastidious-granita-2717ad.netlify.app/",
     github: "https://github.com/btwitsPratyush/Flex-gym",
     tags: ["React", "Three.js", "Framer Motion", "Tailwind CSS"],
+    category: "Minor Project",
+  },
+  {
+    title: "Bella Italia Restaurant",
+    description: "A modern model restaurant website built with React, TypeScript, and Tailwind CSS",
+    image: "/bella-italia-screenshot.jpg",
+    link: "https://coruscating-mooncake-cde773.netlify.app/",
+    github: "https://github.com/btwitsPratyush/Bella-Italia",
+    tags: ["React", "TypeScript", "Tailwind CSS", "Design"],
+    category: "Minor Project",
   },
 ]
 
@@ -72,39 +82,67 @@ export default function ProjectsSection() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 gap-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
         >
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
               variants={itemVariants}
-              className="card-gradient rounded-xl overflow-hidden shadow-xl"
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              className="group bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden shadow-xl hover:border-neon-purple/50 transition-all duration-300"
             >
-              <div className="relative h-60 w-full">
-                <Image src={project.image || "/placeholder.svg"} alt={project.title} fill className="object-cover" />
+              {/* Category Badge */}
+              <div className="absolute top-4 left-4 z-10">
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    project.category === "Major Project"
+                      ? "bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-400 border border-orange-400/30"
+                      : "bg-neon-teal/20 text-neon-teal border border-neon-teal/30"
+                  }`}
+                >
+                  {project.category}
+                </span>
               </div>
+
+              <div className="relative h-48 sm:h-56 md:h-64 w-full overflow-hidden">
+                <Image
+                  src={project.image || "/placeholder.svg"}
+                  alt={project.title}
+                  fill
+                  className="object-cover object-top group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              </div>
+
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                <p className="text-gray-300 mb-4">{project.description}</p>
+                <h3 className="text-xl font-bold mb-3 group-hover:text-neon-purple transition-colors duration-300">
+                  {project.title}
+                </h3>
+                <p className="text-gray-300 mb-4 text-sm leading-relaxed">{project.description}</p>
 
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tags.map((tag) => (
-                    <span key={tag} className="bg-black/30 text-neon-teal px-3 py-1 rounded-full text-sm">
+                    <span
+                      key={tag}
+                      className="bg-black/40 text-neon-teal px-3 py-1 rounded-full text-xs border border-neon-teal/20"
+                    >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-3 flex-wrap">
                   {project.link && (
                     <Button
                       variant="outline"
-                      className="flex items-center gap-2 border-neon-purple hover:bg-neon-purple/20"
+                      size="sm"
+                      className="flex items-center gap-2 border-neon-purple/50 hover:bg-neon-purple/20 text-xs"
                       asChild
                     >
                       <a href={project.link} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink size={16} />
-                        View Project
+                        <ExternalLink size={14} />
+                        Live Demo
                       </a>
                     </Button>
                   )}
@@ -112,17 +150,21 @@ export default function ProjectsSection() {
                   {project.github && (
                     <Button
                       variant="outline"
-                      className="flex items-center gap-2 border-neon-blue hover:bg-neon-blue/20"
+                      size="sm"
+                      className="flex items-center gap-2 border-neon-blue/50 hover:bg-neon-blue/20 text-xs"
                       asChild
                     >
                       <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github size={16} />
+                        <Github size={14} />
                         GitHub
                       </a>
                     </Button>
                   )}
                 </div>
               </div>
+
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-blue/0 to-neon-teal/0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none"></div>
             </motion.div>
           ))}
         </motion.div>
