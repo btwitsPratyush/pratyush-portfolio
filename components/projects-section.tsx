@@ -66,15 +66,19 @@ export default function ProjectsSection() {
 
   return (
     <section id="projects" className="section">
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 py-12 sm:py-16 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gradient">My Projects</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">Some of my recent work</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 text-gradient">
+            My Projects
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto px-4">
+            Some of my recent work
+          </p>
         </motion.div>
 
         <motion.div
@@ -82,19 +86,19 @@ export default function ProjectsSection() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-7xl mx-auto"
         >
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
               variants={itemVariants}
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
-              className="group bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden shadow-xl hover:border-neon-purple/50 transition-all duration-300"
+              className="group bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl hover:border-neon-purple/50 transition-all duration-300"
             >
               {/* Category Badge */}
-              <div className="absolute top-4 left-4 z-10">
+              <div className="absolute top-2 left-2 sm:top-4 sm:left-4 z-10">
                 <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  className={`px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs font-semibold ${
                     project.category === "Major Project"
                       ? "bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-400 border border-orange-400/30"
                       : "bg-neon-teal/20 text-neon-teal border border-neon-teal/30"
@@ -104,7 +108,7 @@ export default function ProjectsSection() {
                 </span>
               </div>
 
-              <div className="relative h-48 sm:h-56 md:h-64 w-full overflow-hidden">
+              <div className="relative h-32 sm:h-40 md:h-48 lg:h-56 w-full overflow-hidden">
                 <Image
                   src={project.image || "/placeholder.svg"}
                   alt={project.title}
@@ -115,33 +119,33 @@ export default function ProjectsSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
 
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 group-hover:text-neon-purple transition-colors duration-300">
+              <div className="p-3 sm:p-4 md:p-6">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold mb-2 sm:mb-3 group-hover:text-neon-purple transition-colors duration-300">
                   {project.title}
                 </h3>
-                <p className="text-gray-300 mb-4 text-sm leading-relaxed">{project.description}</p>
+                <p className="text-gray-300 mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed">{project.description}</p>
 
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="bg-black/40 text-neon-teal px-3 py-1 rounded-full text-xs border border-neon-teal/20"
+                      className="bg-black/40 text-neon-teal px-2 py-1 rounded-full text-xs border border-neon-teal/20"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
-                <div className="flex gap-3 flex-wrap">
+                <div className="flex gap-2 sm:gap-3 flex-wrap">
                   {project.link && (
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex items-center gap-2 border-neon-purple/50 hover:bg-neon-purple/20 text-xs"
+                      className="flex items-center gap-1 sm:gap-2 border-neon-purple/50 hover:bg-neon-purple/20 text-xs"
                       asChild
                     >
                       <a href={project.link} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink size={14} />
+                        <ExternalLink size={12} className="sm:w-3.5 sm:h-3.5" />
                         Live Demo
                       </a>
                     </Button>
@@ -151,11 +155,11 @@ export default function ProjectsSection() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="flex items-center gap-2 border-neon-blue/50 hover:bg-neon-blue/20 text-xs"
+                      className="flex items-center gap-1 sm:gap-2 border-neon-blue/50 hover:bg-neon-blue/20 text-xs"
                       asChild
                     >
                       <a href={project.github} target="_blank" rel="noopener noreferrer">
-                        <Github size={14} />
+                        <Github size={12} className="sm:w-3.5 sm:h-3.5" />
                         GitHub
                       </a>
                     </Button>

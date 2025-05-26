@@ -8,28 +8,28 @@ import { Button } from "@/components/ui/button"
 const socialLinks = [
   {
     name: "Email",
-    icon: <Mail className="h-6 w-6" />,
+    icon: <Mail className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "mailto:pratyushk537@gmail.com",
     label: "pratyushk537@gmail.com",
     description: "Send me an email",
   },
   {
     name: "Twitter",
-    icon: <Twitter className="h-6 w-6" />,
+    icon: <Twitter className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "https://twitter.com/btwitPratyush",
     label: "@btwitPratyush",
     description: "Follow me on Twitter",
   },
   {
     name: "GitHub",
-    icon: <Github className="h-6 w-6" />,
+    icon: <Github className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "https://github.com/btwitsPratyush",
     label: "btwitsPratyush",
     description: "Check out my repositories",
   },
   {
     name: "LinkedIn",
-    icon: <Linkedin className="h-6 w-6" />,
+    icon: <Linkedin className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "https://www.linkedin.com/in/pratyush-kumar-3302b0229",
     label: "Pratyush Kumar",
     description: "Connect professionally",
@@ -66,15 +66,19 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="section">
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 py-12 sm:py-16 md:py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gradient">Let's Connect</h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">Get in touch with me through these platforms</p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 text-gradient">
+            Let's Connect
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto px-4">
+            Get in touch with me through these platforms
+          </p>
         </motion.div>
 
         <motion.div
@@ -84,7 +88,7 @@ export default function ContactSection() {
           animate={inView ? "visible" : "hidden"}
           className="max-w-4xl mx-auto"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {socialLinks.map((link, index) => (
               <motion.div
                 key={link.name}
@@ -95,28 +99,28 @@ export default function ContactSection() {
                 {/* Glow effect on hover */}
                 <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-blue/0 to-neon-teal/0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
 
-                <div className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-neon-purple/20 p-3 rounded-full mt-1">{link.icon}</div>
+                <div className="p-4 sm:p-6">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="bg-neon-purple/20 p-2 sm:p-3 rounded-full mt-1">{link.icon}</div>
 
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold mb-1 group-hover:text-neon-purple transition-colors">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1 group-hover:text-neon-purple transition-colors">
                         {link.name}
                       </h3>
 
-                      <div className="text-gray-300 mb-3">
-                        <span className="text-neon-teal">{link.label}</span>
+                      <div className="text-gray-300 mb-2 sm:mb-3">
+                        <span className="text-neon-teal text-xs sm:text-sm">{link.label}</span>
                       </div>
 
-                      <p className="text-gray-400 text-sm mb-3">{link.description}</p>
+                      <p className="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3">{link.description}</p>
 
                       <Button
                         variant="ghost"
-                        className="p-0 h-auto text-neon-blue hover:text-neon-purple flex items-center gap-2 group-hover:translate-x-1 transition-transform"
+                        className="p-0 h-auto text-neon-blue hover:text-neon-purple flex items-center gap-1 sm:gap-2 group-hover:translate-x-1 transition-transform text-xs sm:text-sm"
                         asChild
                       >
                         <a href={link.href} target="_blank" rel="noopener noreferrer">
-                          Connect <ExternalLink size={14} />
+                          Connect <ExternalLink size={12} className="sm:w-3.5 sm:h-3.5" />
                         </a>
                       </Button>
                     </div>
@@ -124,8 +128,8 @@ export default function ContactSection() {
                 </div>
 
                 {/* Decorative corner accent */}
-                <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
-                  <div className="absolute transform rotate-45 bg-neon-purple/20 text-neon-purple w-24 h-5 -right-6 top-6"></div>
+                <div className="absolute top-0 right-0 w-12 h-12 sm:w-16 sm:h-16 overflow-hidden">
+                  <div className="absolute transform rotate-45 bg-neon-purple/20 text-neon-purple w-16 h-4 sm:w-24 sm:h-5 -right-4 top-4 sm:-right-6 sm:top-6"></div>
                 </div>
               </motion.div>
             ))}
