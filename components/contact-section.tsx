@@ -2,8 +2,15 @@
 
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
-import { Mail, Github, Twitter, Linkedin, ExternalLink } from "lucide-react"
+import { Mail, Github, Linkedin, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
+
+// Custom X (formerly Twitter) icon component
+const XIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+)
 
 const socialLinks = [
   {
@@ -14,11 +21,11 @@ const socialLinks = [
     description: "Send me an email",
   },
   {
-    name: "Twitter",
-    icon: <Twitter className="h-5 w-5 sm:h-6 sm:w-6" />,
-    href: "https://twitter.com/btwitPratyush",
+    name: "X",
+    icon: <XIcon className="h-5 w-5 sm:h-6 sm:w-6" />,
+    href: "https://X.com/btwitsPratyush",
     label: "@btwitPratyush",
-    description: "Follow me on Twitter",
+    description: "Follow me on X",
   },
   {
     name: "GitHub",
@@ -38,8 +45,8 @@ const socialLinks = [
 
 export default function ContactSection() {
   const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
+    triggerOnce: true,
+    threshold: 0.2,
   })
 
   const containerVariants = {
@@ -58,8 +65,8 @@ export default function ContactSection() {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
-        stiffness: 100,
+        duration: 0.4,
+        ease: "easeOut",
       },
     },
   }

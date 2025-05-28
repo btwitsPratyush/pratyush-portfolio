@@ -7,63 +7,63 @@ const skillCategories = [
   {
     title: "Languages:",
     skills: [
-      { name: "C", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "C++", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "JAVA", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "PYTHON", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
+      { name: "C", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "C++", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "JAVA", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "PYTHON", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
     ],
   },
   {
     title: "Frameworks and Libraries:",
     skills: [
-      { name: "TENSORFLOW", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "REACT", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "NEXT.JS", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "NODE.JS", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "EXPRESS.JS", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "TAILWIND CSS", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
+      { name: "TENSORFLOW", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "REACT", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "NEXT.JS", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "NODE.JS", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "EXPRESS.JS", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "TAILWIND CSS", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
     ],
   },
   {
     title: "Web Development:",
     skills: [
-      { name: "HTML5", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "CSS3", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "JAVASCRIPT", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "TYPESCRIPT", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
+      { name: "HTML5", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "CSS3", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "JAVASCRIPT", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "TYPESCRIPT", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
     ],
   },
   {
     title: "Backend Development:",
     skills: [
-      { name: "NODE.JS", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "EXPRESS.JS", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "POSTGRESQL", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "MONGODB", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
+      { name: "NODE.JS", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "EXPRESS.JS", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "POSTGRESQL", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "MONGODB", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
     ],
   },
   {
     title: "Other Tools:",
     skills: [
-      { name: "GIT", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "DOCKER", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "SOLIDITY", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "MACHINE LEARNING", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
+      { name: "GIT", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "DOCKER", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "SOLIDITY", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "MACHINE LEARNING", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
     ],
   },
   {
     title: "IDEs:",
     skills: [
-      { name: "VS CODE", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
-      { name: "PYCHARM", color: "bg-purple-600/40 border border-purple-400/50 text-white" },
+      { name: "VS CODE", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
+      { name: "PYCHARM", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
     ],
   },
 ]
 
 export default function SkillsSection() {
   const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
+    triggerOnce: true,
+    threshold: 0.2,
   })
 
   const containerVariants = {
@@ -82,8 +82,8 @@ export default function SkillsSection() {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
-        stiffness: 100,
+        duration: 0.4,
+        ease: "easeOut",
       },
     },
   }
@@ -122,8 +122,8 @@ export default function SkillsSection() {
                   {category.skills.map((skill, skillIndex) => (
                     <motion.div
                       key={skill.name}
-                      whileHover={{ scale: 1.05, y: -2, transition: { duration: 0.2 } }}
-                      className={`${skill.color} px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-md sm:rounded-lg font-medium text-xs sm:text-sm cursor-pointer transition-all duration-300 hover:shadow-lg hover:border-neon-purple/70 hover:bg-neon-purple/20`}
+                      whileHover={{ y: -2, transition: { duration: 0.2 } }}
+                      className={`${skill.color} px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-md sm:rounded-lg font-medium text-xs sm:text-sm cursor-pointer transition-all duration-200 hover:border-neon-purple/70 hover:bg-gray-700/80`}
                     >
                       {skill.name}
                     </motion.div>
