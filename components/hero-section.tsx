@@ -38,7 +38,7 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
+          transition={{ delay: 2.5, duration: 1 }}
           className="scroll-indicator"
         >
           <ChevronDown className="animate-bounce" size={24} />

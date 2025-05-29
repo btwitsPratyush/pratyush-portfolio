@@ -59,8 +59,8 @@ export default function BackgroundScene() {
   }, [])
 
   // Reduce complexity on mobile
-  const particleCount = isMobile ? 200 : 400
-  const starCount = isMobile ? 200 : 300
+  const particleCount = isMobile ? 400 : 400
+  const starCount = isMobile ? 400 : 300
 
   return (
     <div className="canvas-container">
