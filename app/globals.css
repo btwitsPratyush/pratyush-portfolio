@@ -83,8 +83,49 @@
   animation: bounce 2s infinite;
 }
 
+/* Gentle floating animation for profile picture */
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0px) translateZ(0);
+  }
+  50% {
+    transform: translateY(-8px) translateZ(0);
+  }
+}
+
+/* Slower, smoother wave animation for emoji */
+@keyframes gentle-wave {
+  0%,
+  100% {
+    transform: rotate(0deg) translateZ(0);
+  }
+  10% {
+    transform: rotate(8deg) translateZ(0);
+  }
+  20% {
+    transform: rotate(-6deg) translateZ(0);
+  }
+  30% {
+    transform: rotate(8deg) translateZ(0);
+  }
+  40% {
+    transform: rotate(-3deg) translateZ(0);
+  }
+  50% {
+    transform: rotate(6deg) translateZ(0);
+  }
+  60% {
+    transform: rotate(0deg) translateZ(0);
+  }
+}
+
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0) translateX(-50%);
   }
   40% {
@@ -101,7 +142,31 @@
     min-height: auto;
     padding: 2rem 0;
   }
-  
+
+  /* Further reduce animations on mobile for smoother experience */
+  @keyframes gentle-float {
+    0%,
+    100% {
+      transform: translateY(0px) translateZ(0);
+    }
+    50% {
+      transform: translateY(-4px) translateZ(0);
+    }
+  }
+
+  @keyframes gentle-wave {
+    0%,
+    100% {
+      transform: rotate(0deg) translateZ(0);
+    }
+    25% {
+      transform: rotate(6deg) translateZ(0);
+    }
+    75% {
+      transform: rotate(-6deg) translateZ(0);
+    }
+  }
+
   /* Reduce animations on mobile for better performance */
   * {
     animation-duration: 0.3s !important;
@@ -128,5 +193,19 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  @keyframes gentle-float {
+    0%,
+    100% {
+      transform: translateY(0px) translateZ(0);
+    }
+  }
+
+  @keyframes gentle-wave {
+    0%,
+    100% {
+      transform: rotate(0deg) translateZ(0);
+    }
   }
 }

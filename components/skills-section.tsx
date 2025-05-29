@@ -53,10 +53,7 @@ const skillCategories = [
   },
   {
     title: "IDEs:",
-    skills: [
-      { name: "VS CODE", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
-      { name: "PYCHARM", color: "bg-gray-800/80 border border-purple-400/40 text-white" },
-    ],
+    skills: [{ name: "VS CODE", color: "bg-gray-800/80 border border-purple-400/40 text-white" }],
   },
 ]
 
