@@ -12,12 +12,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-64 lg:h-64 mb-6 sm:mb-8 rounded-full overflow-hidden glow-effect"
-          style={{
-            animation: "gentle-float 8s ease-in-out infinite",
-            transform: "translateZ(0)", // Hardware acceleration
-            willChange: "transform",
-          }}
+          className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-64 lg:h-64 mb-6 sm:mb-8 rounded-full overflow-hidden glow-effect profile-stable"
         >
           <Image src="/profile-pic.jpg" alt="Pratyush Kumar" fill className="object-cover" priority />
         </motion.div>
@@ -29,17 +24,7 @@ export default function HeroSection() {
           className="text-center px-4"
         >
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-2 sm:mb-4 flex items-center justify-center flex-wrap">
-            Hey, I'm Pratyush{" "}
-            <span
-              className="ml-2 inline-block origin-[70%_70%]"
-              style={{
-                animation: "gentle-wave 3s ease-in-out infinite",
-                transform: "translateZ(0)", // Hardware acceleration
-                willChange: "transform",
-              }}
-            >
-              👋
-            </span>
+            Hey, I'm Pratyush <span className="ml-2 inline-block wave-hand">👋</span>
           </h1>
           <h2 className="text-sm sm:text-base md:text-xl lg:text-2xl text-gray-300 mb-4 sm:mb-6">
             Bachelor's in Information Technology

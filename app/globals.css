@@ -35,6 +35,14 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     scroll-behavior: smooth;
+    /* Optimize scrolling for mobile */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  html {
+    /* Smooth but not too fast scrolling */
+    scroll-behavior: smooth;
   }
 }
 
@@ -64,6 +72,9 @@
   width: 100%;
   height: 100%;
   z-index: -1;
+  /* Performance optimizations */
+  will-change: auto;
+  transform: translateZ(0);
 }
 
 .section {
@@ -83,40 +94,46 @@
   animation: bounce 2s infinite;
 }
 
-/* Gentle floating animation for profile picture */
-@keyframes gentle-float {
-  0%,
-  100% {
-    transform: translateY(0px) translateZ(0);
-  }
-  50% {
-    transform: translateY(-8px) translateZ(0);
-  }
+/* Stable profile picture - NO floating animation */
+.profile-stable {
+  transform: translateZ(0);
+  will-change: auto;
+  /* Remove any floating animation */
 }
 
-/* Slower, smoother wave animation for emoji */
-@keyframes gentle-wave {
-  0%,
-  100% {
-    transform: rotate(0deg) translateZ(0);
+/* Proper waving animation for hand emoji */
+.wave-hand {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: proper-wave 2.5s ease-in-out infinite;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+@keyframes proper-wave {
+  0% {
+    transform: rotate(0deg);
   }
   10% {
-    transform: rotate(8deg) translateZ(0);
+    transform: rotate(14deg);
   }
   20% {
-    transform: rotate(-6deg) translateZ(0);
+    transform: rotate(-8deg);
   }
   30% {
-    transform: rotate(8deg) translateZ(0);
+    transform: rotate(14deg);
   }
   40% {
-    transform: rotate(-3deg) translateZ(0);
+    transform: rotate(-4deg);
   }
   50% {
-    transform: rotate(6deg) translateZ(0);
+    transform: rotate(10deg);
   }
   60% {
-    transform: rotate(0deg) translateZ(0);
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }
 
@@ -136,41 +153,74 @@
   }
 }
 
-/* Performance optimizations */
-@media (max-width: 640px) {
+/* Mobile optimizations for performance */
+@media (max-width: 768px) {
   .section {
     min-height: auto;
     padding: 2rem 0;
   }
 
-  /* Further reduce animations on mobile for smoother experience */
-  @keyframes gentle-float {
-    0%,
-    100% {
-      transform: translateY(0px) translateZ(0);
-    }
-    50% {
-      transform: translateY(-4px) translateZ(0);
-    }
+  /* Disable complex animations on mobile */
+  .canvas-container {
+    opacity: 0.7;
   }
 
-  @keyframes gentle-wave {
-    0%,
-    100% {
-      transform: rotate(0deg) translateZ(0);
+  /* Lighter wave animation on mobile */
+  .wave-hand {
+    animation: mobile-wave 3s ease-in-out infinite;
+  }
+
+  @keyframes mobile-wave {
+    0% {
+      transform: rotate(0deg);
     }
-    25% {
-      transform: rotate(6deg) translateZ(0);
+    15% {
+      transform: rotate(12deg);
+    }
+    30% {
+      transform: rotate(-6deg);
+    }
+    45% {
+      transform: rotate(12deg);
+    }
+    60% {
+      transform: rotate(-3deg);
     }
     75% {
-      transform: rotate(-6deg) translateZ(0);
+      transform: rotate(8deg);
+    }
+    90% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(0deg);
     }
   }
 
-  /* Reduce animations on mobile for better performance */
+  /* Optimize all animations for mobile */
   * {
     animation-duration: 0.3s !important;
     transition-duration: 0.2s !important;
+  }
+
+  /* Override for specific animations we want to keep */
+  .wave-hand {
+    animation-duration: 3s !important;
+  }
+
+  .scroll-indicator .animate-bounce {
+    animation-duration: 2s !important;
+  }
+}
+
+/* Ultra-light mode for very slow devices */
+@media (max-width: 480px) {
+  .canvas-container {
+    display: none;
+  }
+
+  body {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
   }
 }
 
@@ -195,17 +245,27 @@
     transition-duration: 0.01ms !important;
   }
 
-  @keyframes gentle-float {
-    0%,
-    100% {
-      transform: translateY(0px) translateZ(0);
-    }
+  .profile-stable {
+    animation: none !important;
   }
 
-  @keyframes gentle-wave {
-    0%,
-    100% {
-      transform: rotate(0deg) translateZ(0);
-    }
+  .wave-hand {
+    animation: none !important;
+  }
+
+  .canvas-container {
+    display: none;
+  }
+}
+
+/* Smooth scrolling optimization */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    scroll-behavior: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
