@@ -35,13 +35,11 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     scroll-behavior: smooth;
-    /* Optimize scrolling for mobile */
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
   }
 
   html {
-    /* Smooth but not too fast scrolling */
     scroll-behavior: smooth;
   }
 }
@@ -72,7 +70,6 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  /* Performance optimizations */
   will-change: auto;
   transform: translateZ(0);
 }
@@ -98,7 +95,6 @@
 .profile-stable {
   transform: translateZ(0);
   will-change: auto;
-  /* Remove any floating animation */
 }
 
 /* Proper waving animation for hand emoji */
@@ -160,11 +156,6 @@
     padding: 2rem 0;
   }
 
-  /* Disable complex animations on mobile */
-  .canvas-container {
-    opacity: 0.7;
-  }
-
   /* Lighter wave animation on mobile */
   .wave-hand {
     animation: mobile-wave 3s ease-in-out infinite;
@@ -213,17 +204,6 @@
   }
 }
 
-/* Ultra-light mode for very slow devices */
-@media (max-width: 480px) {
-  .canvas-container {
-    display: none;
-  }
-
-  body {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-  }
-}
-
 /* Optimized transitions */
 .transition-optimized {
   transition-property: transform, opacity;
@@ -252,10 +232,6 @@
   .wave-hand {
     animation: none !important;
   }
-
-  .canvas-container {
-    display: none;
-  }
 }
 
 /* Smooth scrolling optimization */
@@ -267,5 +243,24 @@
   body {
     scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Mobile contact section styles - Fixed CSS syntax */
+@layer components {
+  .contact-container-mobile {
+    @apply bg-black/40 backdrop-blur-sm border border-neon-purple/20 rounded-xl overflow-hidden;
+  }
+
+  .contact-item-mobile {
+    @apply py-3 px-4 border-b border-neon-purple/20 bg-transparent shadow-none rounded-none flex items-center justify-between;
+  }
+
+  .contact-item-mobile:last-child {
+    @apply border-b-0;
+  }
+
+  .contact-icon-mobile {
+    @apply p-2 bg-neon-purple/20 rounded-full;
   }
 }
