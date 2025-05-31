@@ -3,8 +3,6 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Mail, Github, Linkedin, ExternalLink } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useEffect, useState } from "react"
 
 // Custom X (formerly Twitter) icon component
 const XIcon = ({ className }: { className?: string }) => (
@@ -16,31 +14,35 @@ const XIcon = ({ className }: { className?: string }) => (
 const socialLinks = [
   {
     name: "Email",
-    icon: <Mail className="h-4 w-4 sm:h-5 sm:w-5" />,
+    icon: <Mail className="h-6 w-6 sm:h-8 sm:w-8" />,
     href: "mailto:pratyushk537@gmail.com",
     label: "pratyushk537@gmail.com",
-    description: "Send me an email",
+    color: "text-pink-400",
+    hoverColor: "hover:text-pink-300",
   },
   {
     name: "X",
-    icon: <XIcon className="h-4 w-4 sm:h-5 sm:w-5" />,
+    icon: <XIcon className="h-6 w-6 sm:h-8 sm:w-8" />,
     href: "https://X.com/btwitsPratyush",
     label: "@btwitPratyush",
-    description: "Follow me on X",
+    color: "text-purple-400",
+    hoverColor: "hover:text-purple-300",
   },
   {
     name: "GitHub",
-    icon: <Github className="h-4 w-4 sm:h-5 sm:w-5" />,
+    icon: <Github className="h-6 w-6 sm:h-8 sm:w-8" />,
     href: "https://github.com/btwitsPratyush",
     label: "btwitsPratyush",
-    description: "Check out my repositories",
+    color: "text-blue-400",
+    hoverColor: "hover:text-blue-300",
   },
   {
     name: "LinkedIn",
-    icon: <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />,
+    icon: <Linkedin className="h-6 w-6 sm:h-8 sm:w-8" />,
     href: "https://www.linkedin.com/in/pratyush-kumar-3302b0229",
     label: "Pratyush Kumar",
-    description: "Connect professionally",
+    color: "text-cyan-400",
+    hoverColor: "hover:text-cyan-300",
   },
 ]
 
@@ -50,35 +52,23 @@ export default function ContactSection() {
     threshold: 0.2,
   })
 
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640)
-    }
-
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.3,
+        duration: 0.5,
         ease: "easeOut",
       },
     },
@@ -91,12 +81,12 @@ export default function ContactSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 text-gradient">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gradient">
             Let's Connect
           </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto px-4">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto px-4">
             Get in touch with me through these platforms
           </p>
         </motion.div>
@@ -106,80 +96,49 @@ export default function ContactSection() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="max-w-4xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
-          {isMobile ? (
-            // Mobile-optimized compact contact list
-            <div className="contact-container-mobile">
-              {socialLinks.map((link, index) => (
-                <motion.div key={link.name} variants={itemVariants} className="contact-item-mobile">
-                  <div className="flex items-center gap-3">
-                    <div className="contact-icon-mobile">{link.icon}</div>
-                    <div>
-                      <h3 className="text-sm font-bold text-neon-purple">{link.name}</h3>
-                      <span className="text-xs text-neon-teal">{link.label}</span>
-                    </div>
-                  </div>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-neon-blue hover:text-neon-purple transition-colors"
-                  >
-                    <ExternalLink size={14} />
-                  </a>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            // Desktop version with cards
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              {socialLinks.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  variants={itemVariants}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  className="relative bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm border border-neon-purple/20 rounded-xl overflow-hidden shadow-lg group"
+          {/* Clean grid layout without boxes - same on mobile and desktop */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
+            {socialLinks.map((link, index) => (
+              <motion.div key={link.name} variants={itemVariants} className="text-center group">
+                <motion.a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-blue/0 to-neon-teal/0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-
-                  <div className="p-4 sm:p-6">
-                    <div className="flex items-start gap-3 sm:gap-4">
-                      <div className="bg-neon-purple/20 p-2 sm:p-3 rounded-full mt-1">{link.icon}</div>
-
-                      <div className="flex-1">
-                        <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1 group-hover:text-neon-purple transition-colors">
-                          {link.name}
-                        </h3>
-
-                        <div className="text-gray-300 mb-2 sm:mb-3">
-                          <span className="text-neon-teal text-xs sm:text-sm">{link.label}</span>
-                        </div>
-
-                        <p className="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3">{link.description}</p>
-
-                        <Button
-                          variant="ghost"
-                          className="p-0 h-auto text-neon-blue hover:text-neon-purple flex items-center gap-1 sm:gap-2 group-hover:translate-x-1 transition-transform text-xs sm:text-sm"
-                          asChild
-                        >
-                          <a href={link.href} target="_blank" rel="noopener noreferrer">
-                            Connect <ExternalLink size={12} className="sm:w-3.5 sm:h-3.5" />
-                          </a>
-                        </Button>
-                      </div>
-                    </div>
+                  {/* Icon with glow effect */}
+                  <div
+                    className={`inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm border border-white/10 ${link.color} ${link.hoverColor} transition-all duration-300 group-hover:border-white/30 group-hover:shadow-lg group-hover:shadow-current/20 mb-3 sm:mb-4`}
+                  >
+                    {link.icon}
                   </div>
 
-                  {/* Decorative corner accent */}
-                  <div className="absolute top-0 right-0 w-12 h-12 sm:w-16 sm:h-16 overflow-hidden">
-                    <div className="absolute transform rotate-45 bg-neon-purple/20 text-neon-purple w-16 h-4 sm:w-24 sm:h-5 -right-4 top-4 sm:-right-6 sm:top-6"></div>
+                  {/* Platform name */}
+                  <h3
+                    className={`text-base sm:text-lg md:text-xl font-bold mb-1 sm:mb-2 ${link.color} ${link.hoverColor} transition-colors duration-300`}
+                  >
+                    {link.name}
+                  </h3>
+
+                  {/* Handle/Email */}
+                  <p className="text-xs sm:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300 break-all">
+                    {link.label}
+                  </p>
+
+                  {/* Subtle external link indicator */}
+                  <div className="flex items-center justify-center mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <ExternalLink size={14} className="text-gray-500" />
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
+                </motion.a>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Removed the pink line at the bottom as requested */}
         </motion.div>
       </div>
     </section>

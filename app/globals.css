@@ -32,11 +32,12 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
+    background: #000000; /* Pure black background like in screenshot */
   }
 
   html {
@@ -70,6 +71,7 @@
   width: 100%;
   height: 100%;
   z-index: -1;
+  background: #000000; /* Pure black background */
   will-change: auto;
   transform: translateZ(0);
 }
@@ -97,35 +99,35 @@
   will-change: auto;
 }
 
-/* Proper waving animation for hand emoji */
+/* Faster waving animation for hand emoji */
 .wave-hand {
   display: inline-block;
   transform-origin: 70% 70%;
-  animation: proper-wave 2.5s ease-in-out infinite;
+  animation: fast-wave 1.8s ease-in-out infinite; /* Faster speed */
   transform: translateZ(0);
   will-change: transform;
 }
 
-@keyframes proper-wave {
+@keyframes fast-wave {
   0% {
     transform: rotate(0deg);
   }
-  10% {
+  8% {
     transform: rotate(14deg);
   }
-  20% {
+  16% {
     transform: rotate(-8deg);
   }
-  30% {
+  24% {
     transform: rotate(14deg);
   }
-  40% {
+  32% {
     transform: rotate(-4deg);
   }
-  50% {
+  40% {
     transform: rotate(10deg);
   }
-  60% {
+  48% {
     transform: rotate(0deg);
   }
   100% {
@@ -149,54 +151,21 @@
   }
 }
 
-/* Mobile optimizations for performance */
+/* Mobile optimizations - KEEP ANIMATIONS THE SAME AS DESKTOP */
 @media (max-width: 768px) {
   .section {
     min-height: auto;
     padding: 2rem 0;
   }
 
-  /* Lighter wave animation on mobile */
+  /* Use the same wave animation on mobile */
   .wave-hand {
-    animation: mobile-wave 3s ease-in-out infinite;
+    animation: fast-wave 1.8s ease-in-out infinite !important;
   }
 
-  @keyframes mobile-wave {
-    0% {
-      transform: rotate(0deg);
-    }
-    15% {
-      transform: rotate(12deg);
-    }
-    30% {
-      transform: rotate(-6deg);
-    }
-    45% {
-      transform: rotate(12deg);
-    }
-    60% {
-      transform: rotate(-3deg);
-    }
-    75% {
-      transform: rotate(8deg);
-    }
-    90% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
-  }
-
-  /* Optimize all animations for mobile */
-  * {
-    animation-duration: 0.3s !important;
-    transition-duration: 0.2s !important;
-  }
-
-  /* Override for specific animations we want to keep */
+  /* Override animation duration to keep animations consistent */
   .wave-hand {
-    animation-duration: 3s !important;
+    animation-duration: 1.8s !important;
   }
 
   .scroll-indicator .animate-bounce {
@@ -243,24 +212,5 @@
   body {
     scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
-  }
-}
-
-/* Mobile contact section styles - Fixed CSS syntax */
-@layer components {
-  .contact-container-mobile {
-    @apply bg-black/40 backdrop-blur-sm border border-neon-purple/20 rounded-xl overflow-hidden;
-  }
-
-  .contact-item-mobile {
-    @apply py-3 px-4 border-b border-neon-purple/20 bg-transparent shadow-none rounded-none flex items-center justify-between;
-  }
-
-  .contact-item-mobile:last-child {
-    @apply border-b-0;
-  }
-
-  .contact-icon-mobile {
-    @apply p-2 bg-neon-purple/20 rounded-full;
   }
 }

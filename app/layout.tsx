@@ -13,6 +13,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Pratyush | Portfolio",
   description: "Personal portfolio of Pratyush, IT student and developer",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
+  themeColor: "#000000",
     generator: 'v0.dev'
 }
 
@@ -24,8 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-        <meta name="theme-color" content="#b026ff" />
+        <meta name="theme-color" content="#000000" />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
