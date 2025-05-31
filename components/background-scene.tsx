@@ -115,8 +115,8 @@ export default function BackgroundScene() {
   }, [])
 
   // Keep particle count high even on mobile for visual consistency
-  const particleCount = isMobile ? 500 : 600
-  const squareCount = isMobile ? 80 : 100
+  const particleCount = isMobile ? 300 : 400
+  const squareCount = isMobile ? 60 : 80
 
   return (
     <div className="canvas-container">
