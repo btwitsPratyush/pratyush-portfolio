@@ -14,7 +14,7 @@ const XIcon = ({ className }: { className?: string }) => (
 const socialLinks = [
   {
     name: "Email",
-    icon: <Mail className="h-6 w-6 sm:h-8 sm:w-8" />,
+    icon: <Mail className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "mailto:pratyushk537@gmail.com",
     label: "pratyushk537@gmail.com",
     color: "text-pink-400",
@@ -22,7 +22,7 @@ const socialLinks = [
   },
   {
     name: "X",
-    icon: <XIcon className="h-6 w-6 sm:h-8 sm:w-8" />,
+    icon: <XIcon className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "https://X.com/btwitsPratyush",
     label: "@btwitPratyush",
     color: "text-purple-400",
@@ -30,7 +30,7 @@ const socialLinks = [
   },
   {
     name: "GitHub",
-    icon: <Github className="h-6 w-6 sm:h-8 sm:w-8" />,
+    icon: <Github className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "https://github.com/btwitsPratyush",
     label: "btwitsPratyush",
     color: "text-blue-400",
@@ -38,7 +38,7 @@ const socialLinks = [
   },
   {
     name: "LinkedIn",
-    icon: <Linkedin className="h-6 w-6 sm:h-8 sm:w-8" />,
+    icon: <Linkedin className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "https://www.linkedin.com/in/pratyush-kumar-3302b0229",
     label: "Pratyush Kumar",
     color: "text-cyan-400",
@@ -57,18 +57,18 @@ export default function ContactSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.1,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5,
+        duration: 0.4,
         ease: "easeOut",
       },
     },
@@ -76,17 +76,17 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="section">
-      <div className="container mx-auto px-4 py-12 sm:py-16 md:py-20">
+      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 sm:mb-16 md:mb-20"
+          className="text-center mb-8 sm:mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gradient">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gradient elegant-spacing">
             Let's Connect
           </h2>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto px-4">
+          <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl mx-auto px-4 elegant-spacing">
             Get in touch with me through these platforms
           </p>
         </motion.div>
@@ -96,10 +96,10 @@ export default function ContactSection() {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="max-w-6xl mx-auto"
+          className="max-w-4xl mx-auto"
         >
-          {/* Clean grid layout without boxes - same on mobile and desktop */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
+          {/* Compact elegant grid layout */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {socialLinks.map((link, index) => (
               <motion.div key={link.name} variants={itemVariants} className="text-center group">
                 <motion.a
@@ -107,38 +107,36 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                 >
-                  {/* Icon with glow effect */}
+                  {/* Smaller, more elegant icon container */}
                   <div
-                    className={`inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm border border-white/10 ${link.color} ${link.hoverColor} transition-all duration-300 group-hover:border-white/30 group-hover:shadow-lg group-hover:shadow-current/20 mb-3 sm:mb-4`}
+                    className={`inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-black/50 to-black/30 backdrop-blur-sm border border-white/10 ${link.color} ${link.hoverColor} transition-all duration-300 group-hover:border-white/25 group-hover:shadow-md group-hover:shadow-current/15 mb-2 sm:mb-3`}
                   >
                     {link.icon}
                   </div>
 
-                  {/* Platform name */}
+                  {/* Smaller, elegant text */}
                   <h3
-                    className={`text-base sm:text-lg md:text-xl font-bold mb-1 sm:mb-2 ${link.color} ${link.hoverColor} transition-colors duration-300`}
+                    className={`text-sm sm:text-base md:text-lg font-semibold mb-1 ${link.color} ${link.hoverColor} transition-colors duration-300 elegant-spacing`}
                   >
                     {link.name}
                   </h3>
 
-                  {/* Handle/Email */}
-                  <p className="text-xs sm:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300 break-all">
+                  {/* Compact handle/email */}
+                  <p className="text-xs sm:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300 break-all elegant-spacing">
                     {link.label}
                   </p>
 
                   {/* Subtle external link indicator */}
-                  <div className="flex items-center justify-center mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <ExternalLink size={14} className="text-gray-500" />
+                  <div className="flex items-center justify-center mt-1 sm:mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <ExternalLink size={12} className="text-gray-500" />
                   </div>
                 </motion.a>
               </motion.div>
             ))}
           </div>
-
-          {/* Removed the pink line at the bottom as requested */}
         </motion.div>
       </div>
     </section>

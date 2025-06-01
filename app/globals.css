@@ -71,9 +71,11 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: #000000; /* Pure black background */
+  background: #000000;
   will-change: auto;
   transform: translateZ(0);
+  /* Add subtle blur effect */
+  filter: blur(0.5px);
 }
 
 .section {
@@ -83,6 +85,8 @@
   justify-content: center;
   position: relative;
   z-index: 1;
+  /* Add backdrop blur for elegant effect */
+  backdrop-filter: blur(1px);
 }
 
 .scroll-indicator {
@@ -103,7 +107,7 @@
 .wave-hand {
   display: inline-block;
   transform-origin: 70% 70%;
-  animation: fast-wave 1.8s ease-in-out infinite; /* Faster speed */
+  animation: fast-wave 1.8s ease-in-out infinite;
   transform: translateZ(0);
   will-change: transform;
 }
@@ -151,25 +155,38 @@
   }
 }
 
-/* Mobile optimizations - KEEP ANIMATIONS THE SAME AS DESKTOP */
+/* Mobile optimizations for performance */
 @media (max-width: 768px) {
   .section {
     min-height: auto;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
+  }
+
+  /* Reduce blur on mobile for better performance */
+  .canvas-container {
+    filter: blur(0.3px);
+  }
+
+  .section {
+    backdrop-filter: blur(0.5px);
   }
 
   /* Use the same wave animation on mobile */
   .wave-hand {
     animation: fast-wave 1.8s ease-in-out infinite !important;
-  }
-
-  /* Override animation duration to keep animations consistent */
-  .wave-hand {
     animation-duration: 1.8s !important;
   }
 
   .scroll-indicator .animate-bounce {
     animation-duration: 2s !important;
+  }
+}
+
+/* Ultra-mobile optimization */
+@media (max-width: 480px) {
+  .canvas-container {
+    filter: blur(0.2px);
+    opacity: 0.8;
   }
 }
 
@@ -201,6 +218,10 @@
   .wave-hand {
     animation: none !important;
   }
+
+  .canvas-container {
+    filter: none;
+  }
 }
 
 /* Smooth scrolling optimization */
@@ -212,5 +233,23 @@
   body {
     scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Elegant spacing and typography */
+.elegant-spacing {
+  letter-spacing: 0.025em;
+  line-height: 1.6;
+}
+
+.elegant-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .elegant-container {
+    padding: 0 2rem;
   }
 }
