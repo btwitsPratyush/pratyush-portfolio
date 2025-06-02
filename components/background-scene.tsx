@@ -1,144 +1,141 @@
 "use client"
 
-import { useRef, useMemo, useEffect, useState } from "react"
-import { Canvas, useFrame } from "@react-three/fiber"
+import { useRef } from "react"
+import { Canvas, useFrame, useThree } from "@react-three/fiber"
+import { OrbitControls, Stars } from "@react-three/drei"
 import type * as THREE from "three"
+import { useSpring, animated } from "@react-spring/three"
 
-function PinkParticles({ count = 300 }) {
+function Particles({ count = 1000 }) {
   const mesh = useRef<THREE.Points>(null)
+  const { viewport } = useThree()
 
-  // Generate beautiful pink/purple particles
-  const { positions, colors } = useMemo(() => {
-    const positions = new Float32Array(count * 3)
-    const colors = new Float32Array(count * 3)
+  // Generate random particles
+  const particles = useRef<Float32Array>()
+  const colors = useRef<Float32Array>()
+
+  if (!particles.current) {
+    particles.current = new Float32Array(count * 3)
+    colors.current = new Float32Array(count * 3)
 
     for (let i = 0; i < count; i++) {
       const i3 = i * 3
-      positions[i3] = (Math.random() - 0.5) * 8
-      positions[i3 + 1] = (Math.random() - 0.5) * 8
-      positions[i3 + 2] = (Math.random() - 0.5) * 8
+      particles.current[i3] = (Math.random() - 0.5) * 10
+      particles.current[i3 + 1] = (Math.random() - 0.5) * 10
+      particles.current[i3 + 2] = (Math.random() - 0.5) * 10
 
-      // Beautiful pink/purple/magenta color palette
-      const colorVariant = Math.random()
-      if (colorVariant < 0.4) {
-        // Bright pink
-        colors[i3] = 1.0 // R
-        colors[i3 + 1] = 0.2 // G
-        colors[i3 + 2] = 0.8 // B
-      } else if (colorVariant < 0.7) {
-        // Purple
-        colors[i3] = 0.7 // R
-        colors[i3 + 1] = 0.1 // G
-        colors[i3 + 2] = 1.0 // B
-      } else {
-        // Magenta
-        colors[i3] = 1.0 // R
-        colors[i3 + 1] = 0.0 // G
-        colors[i3 + 2] = 1.0 // B
-      }
+      // Purple to blue gradient colors
+      colors.current[i3] = Math.random() * 0.5 + 0.5 // R: 0.5-1.0 (purple-ish)
+      colors.current[i3 + 1] = Math.random() * 0.2 // G: 0-0.2 (low green for purple)
+      colors.current[i3 + 2] = Math.random() * 0.5 + 0.5 // B: 0.5-1.0 (blue-ish)
     }
-
-    return { positions, colors }
-  }, [count])
+  }
 
   useFrame((state) => {
     if (mesh.current) {
-      // Smooth floating movement
-      mesh.current.rotation.x = state.clock.getElapsedTime() * 0.015
-      mesh.current.rotation.y = state.clock.getElapsedTime() * 0.02
-      mesh.current.rotation.z = state.clock.getElapsedTime() * 0.008
+      mesh.current.rotation.x = state.clock.getElapsedTime() * 0.05
+      mesh.current.rotation.y = state.clock.getElapsedTime() * 0.075
     }
   })
 
   return (
     <points ref={mesh}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
-        <bufferAttribute attach="attributes-color" count={count} array={colors} itemSize={3} />
+        <bufferAttribute attach="attributes-position" count={count} array={particles.current} itemSize={3} />
+        <bufferAttribute attach="attributes-color" count={count} array={colors.current} itemSize={3} />
       </bufferGeometry>
       <pointsMaterial size={0.05} vertexColors transparent opacity={0.8} sizeAttenuation />
     </points>
   )
 }
 
-function FloatingSquares({ count = 60 }) {
-  const meshes = useRef<THREE.Group>(null)
+function FloatingOrbs() {
+  const orb1 = useRef<THREE.Mesh>(null)
+  const orb2 = useRef<THREE.Mesh>(null)
+  const orb3 = useRef<THREE.Mesh>(null)
 
-  const squares = useMemo(() => {
-    const squareData = []
-    for (let i = 0; i < count; i++) {
-      squareData.push({
-        position: [(Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10],
-        rotation: [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI],
-        scale: Math.random() * 0.08 + 0.04,
-        color: Math.random() < 0.5 ? "#ff44cc" : "#b026ff",
-      })
-    }
-    return squareData
-  }, [count])
+  const springs1 = useSpring({
+    scale: [1, 1, 1],
+    position: [3, 1, -2],
+    rotation: [0, Math.PI, 0],
+    config: { mass: 2, tension: 20, friction: 10 },
+    loop: { reverse: true },
+  })
 
-  useFrame((state) => {
-    if (meshes.current) {
-      meshes.current.rotation.x = state.clock.getElapsedTime() * 0.01
-      meshes.current.rotation.y = state.clock.getElapsedTime() * 0.015
-    }
+  const springs2 = useSpring({
+    scale: [1.2, 1.2, 1.2],
+    position: [-3, -1, -1],
+    rotation: [Math.PI, 0, Math.PI],
+    config: { mass: 1, tension: 10, friction: 15 },
+    loop: { reverse: true },
+  })
+
+  const springs3 = useSpring({
+    scale: [0.8, 0.8, 0.8],
+    position: [0, 2, -3],
+    rotation: [0, Math.PI, Math.PI],
+    config: { mass: 3, tension: 5, friction: 5 },
+    loop: { reverse: true },
   })
 
   return (
-    <group ref={meshes}>
-      {squares.map((square, index) => (
-        <mesh
-          key={index}
-          position={square.position as [number, number, number]}
-          rotation={square.rotation as [number, number, number]}
-          scale={square.scale}
-        >
-          <boxGeometry args={[1, 1, 0.1]} />
-          <meshBasicMaterial color={square.color} transparent opacity={0.6} />
-        </mesh>
-      ))}
-    </group>
+    <>
+      <animated.mesh ref={orb1} {...springs1}>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshStandardMaterial
+          color="#b026ff"
+          emissive="#4d00b3"
+          emissiveIntensity={0.5}
+          roughness={0.2}
+          metalness={0.8}
+        />
+      </animated.mesh>
+
+      <animated.mesh ref={orb2} {...springs2}>
+        <sphereGeometry args={[0.7, 32, 32]} />
+        <meshStandardMaterial
+          color="#4d4dff"
+          emissive="#0000cc"
+          emissiveIntensity={0.5}
+          roughness={0.2}
+          metalness={0.8}
+        />
+      </animated.mesh>
+
+      <animated.mesh ref={orb3} {...springs3}>
+        <sphereGeometry args={[0.4, 32, 32]} />
+        <meshStandardMaterial
+          color="#00e5e5"
+          emissive="#00b3b3"
+          emissiveIntensity={0.5}
+          roughness={0.2}
+          metalness={0.8}
+        />
+      </animated.mesh>
+    </>
   )
 }
 
 export default function BackgroundScene() {
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
-
-  // Balanced particle count for performance and beauty
-  const particleCount = isMobile ? 200 : 300
-  const squareCount = isMobile ? 40 : 60
-
   return (
     <div className="canvas-container">
-      <Canvas
-        camera={{ position: [0, 0, 7], fov: 70 }}
-        performance={{ min: 0.6 }}
-        dpr={isMobile ? [0.8, 1] : [1, 1.5]}
-        frameloop="always"
-        gl={{
-          antialias: false,
-          powerPreference: "high-performance",
-          alpha: true,
-          premultipliedAlpha: false,
-        }}
-      >
-        <color attach="background" args={["#000000"]} />
+      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
         <ambientLight intensity={0.2} />
-        <pointLight position={[8, 8, 8]} intensity={0.4} color="#ff44cc" />
-        <pointLight position={[-8, -8, -8]} intensity={0.3} color="#b026ff" />
+        <pointLight position={[10, 10, 10]} intensity={0.8} color="#ffffff" />
+        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#b026ff" />
 
-        <PinkParticles count={particleCount} />
-        <FloatingSquares count={squareCount} />
+        <Particles count={2000} />
+        <FloatingOrbs />
+        <Stars radius={100} depth={50} count={1000} factor={4} fade speed={1} />
+
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          enableRotate={true}
+          rotateSpeed={0.1}
+          autoRotate
+          autoRotateSpeed={0.1}
+        />
       </Canvas>
     </div>
   )

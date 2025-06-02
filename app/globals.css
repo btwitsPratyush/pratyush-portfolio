@@ -73,8 +73,13 @@
   height: 100%;
   z-index: -1;
   background: #000000;
-  will-change: auto;
+  will-change: transform;
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
 }
 
 .section {
