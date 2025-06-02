@@ -4,10 +4,10 @@ import { useRef, useMemo, useEffect, useState } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import type * as THREE from "three"
 
-function PinkParticles({ count = 400 }) {
+function PinkParticles({ count = 300 }) {
   const mesh = useRef<THREE.Points>(null)
 
-  // Generate pink/purple particles with reduced count
+  // Generate beautiful pink/purple particles
   const { positions, colors } = useMemo(() => {
     const positions = new Float32Array(count * 3)
     const colors = new Float32Array(count * 3)
@@ -18,7 +18,7 @@ function PinkParticles({ count = 400 }) {
       positions[i3 + 1] = (Math.random() - 0.5) * 8
       positions[i3 + 2] = (Math.random() - 0.5) * 8
 
-      // Pink/Purple/Magenta color palette
+      // Beautiful pink/purple/magenta color palette
       const colorVariant = Math.random()
       if (colorVariant < 0.4) {
         // Bright pink
@@ -43,7 +43,7 @@ function PinkParticles({ count = 400 }) {
 
   useFrame((state) => {
     if (mesh.current) {
-      // Slower, smoother movement for better performance
+      // Smooth floating movement
       mesh.current.rotation.x = state.clock.getElapsedTime() * 0.015
       mesh.current.rotation.y = state.clock.getElapsedTime() * 0.02
       mesh.current.rotation.z = state.clock.getElapsedTime() * 0.008
@@ -56,12 +56,12 @@ function PinkParticles({ count = 400 }) {
         <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
         <bufferAttribute attach="attributes-color" count={count} array={colors} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial size={0.05} vertexColors transparent opacity={0.7} sizeAttenuation />
+      <pointsMaterial size={0.05} vertexColors transparent opacity={0.8} sizeAttenuation />
     </points>
   )
 }
 
-function FloatingSquares({ count = 50 }) {
+function FloatingSquares({ count = 60 }) {
   const meshes = useRef<THREE.Group>(null)
 
   const squares = useMemo(() => {
@@ -79,8 +79,8 @@ function FloatingSquares({ count = 50 }) {
 
   useFrame((state) => {
     if (meshes.current) {
-      meshes.current.rotation.x = state.clock.getElapsedTime() * 0.008
-      meshes.current.rotation.y = state.clock.getElapsedTime() * 0.012
+      meshes.current.rotation.x = state.clock.getElapsedTime() * 0.01
+      meshes.current.rotation.y = state.clock.getElapsedTime() * 0.015
     }
   })
 
@@ -114,16 +114,16 @@ export default function BackgroundScene() {
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
-  // Reduced particle count for better performance
+  // Balanced particle count for performance and beauty
   const particleCount = isMobile ? 200 : 300
-  const squareCount = isMobile ? 30 : 40
+  const squareCount = isMobile ? 40 : 60
 
   return (
     <div className="canvas-container">
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 75 }}
-        performance={{ min: 0.5 }}
-        dpr={isMobile ? [0.7, 1] : [1, 1.5]}
+        camera={{ position: [0, 0, 7], fov: 70 }}
+        performance={{ min: 0.6 }}
+        dpr={isMobile ? [0.8, 1] : [1, 1.5]}
         frameloop="always"
         gl={{
           antialias: false,
@@ -132,9 +132,10 @@ export default function BackgroundScene() {
           premultipliedAlpha: false,
         }}
       >
-        <ambientLight intensity={0.15} />
-        <pointLight position={[8, 8, 8]} intensity={0.3} color="#ff44cc" />
-        <pointLight position={[-8, -8, -8]} intensity={0.25} color="#b026ff" />
+        <color attach="background" args={["#000000"]} />
+        <ambientLight intensity={0.2} />
+        <pointLight position={[8, 8, 8]} intensity={0.4} color="#ff44cc" />
+        <pointLight position={[-8, -8, -8]} intensity={0.3} color="#b026ff" />
 
         <PinkParticles count={particleCount} />
         <FloatingSquares count={squareCount} />

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Mail, Github, Linkedin, ExternalLink } from "lucide-react"
+import { useEffect, useState } from "react"
 
 // Custom X (formerly Twitter) icon component
 const XIcon = ({ className }: { className?: string }) => (
@@ -52,30 +53,42 @@ export default function ContactSection() {
     threshold: 0.2,
   })
 
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: isMobile ? 0.05 : 0.1,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.4,
+        duration: isMobile ? 0.2 : 0.4,
         ease: "easeOut",
       },
     },
   }
 
   return (
-    <section id="contact" className="section">
+    <section id="contact" className="section performance-optimized">
       <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -98,7 +111,7 @@ export default function ContactSection() {
           animate={inView ? "visible" : "hidden"}
           className="max-w-4xl mx-auto"
         >
-          {/* Compact elegant grid layout */}
+          {/* Optimized grid layout */}
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {socialLinks.map((link, index) => (
               <motion.div key={link.name} variants={itemVariants} className="text-center group">
@@ -107,30 +120,30 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
+                  whileHover={isMobile ? {} : { scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  {/* Smaller, more elegant icon container */}
+                  {/* Optimized icon container */}
                   <div
-                    className={`inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br from-black/50 to-black/30 backdrop-blur-sm border border-white/10 ${link.color} ${link.hoverColor} transition-all duration-300 group-hover:border-white/25 group-hover:shadow-md group-hover:shadow-current/15 mb-2 sm:mb-3`}
+                    className={`inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-black/50 border border-white/10 ${link.color} ${link.hoverColor} transition-colors duration-200 mb-2 sm:mb-3`}
                   >
                     {link.icon}
                   </div>
 
-                  {/* Smaller, elegant text */}
+                  {/* Optimized text */}
                   <h3
-                    className={`text-sm sm:text-base md:text-lg font-semibold mb-1 ${link.color} ${link.hoverColor} transition-colors duration-300 elegant-spacing`}
+                    className={`text-sm sm:text-base md:text-lg font-semibold mb-1 ${link.color} ${link.hoverColor} transition-colors duration-200 elegant-spacing`}
                   >
                     {link.name}
                   </h3>
 
                   {/* Compact handle/email */}
-                  <p className="text-xs sm:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300 break-all elegant-spacing">
+                  <p className="text-xs sm:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-200 break-all elegant-spacing">
                     {link.label}
                   </p>
 
                   {/* Subtle external link indicator */}
-                  <div className="flex items-center justify-center mt-1 sm:mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="flex items-center justify-center mt-1 sm:mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     <ExternalLink size={12} className="text-gray-500" />
                   </div>
                 </motion.a>
