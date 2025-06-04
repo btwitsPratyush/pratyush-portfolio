@@ -82,6 +82,29 @@
   -webkit-perspective: 1000;
 }
 
+/* Subtle backdrop blur for content sections */
+.backdrop-blur-sm {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* Mobile optimization for backdrop blur */
+@media (max-width: 768px) {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+  }
+}
+
+/* Ultra low-end device optimization */
+@media (max-width: 480px) and (max-device-width: 480px) {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(0.5px);
+    -webkit-backdrop-filter: blur(0.5px);
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
 .section {
   min-height: 100vh;
   display: flex;
@@ -202,6 +225,12 @@
 
   .wave-hand {
     animation: none !important;
+  }
+
+  /* Remove blur for users who prefer reduced motion */
+  .backdrop-blur-sm {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 }
 

@@ -10,7 +10,6 @@ function Particles({ count = 1000 }) {
   const mesh = useRef<THREE.Points>(null)
   const { viewport } = useThree()
 
-  // Generate random particles
   const particles = useRef<Float32Array>()
   const colors = useRef<Float32Array>()
 
@@ -24,10 +23,9 @@ function Particles({ count = 1000 }) {
       particles.current[i3 + 1] = (Math.random() - 0.5) * 10
       particles.current[i3 + 2] = (Math.random() - 0.5) * 10
 
-      // Purple to blue gradient colors
-      colors.current[i3] = Math.random() * 0.5 + 0.5 // R: 0.5-1.0 (purple-ish)
-      colors.current[i3 + 1] = Math.random() * 0.2 // G: 0-0.2 (low green for purple)
-      colors.current[i3 + 2] = Math.random() * 0.5 + 0.5 // B: 0.5-1.0 (blue-ish)
+      colors.current[i3] = Math.random() * 0.5 + 0.5
+      colors.current[i3 + 1] = Math.random() * 0.2
+      colors.current[i3 + 2] = Math.random() * 0.5 + 0.5
     }
   }
 
@@ -118,25 +116,31 @@ function FloatingOrbs() {
 
 export default function BackgroundScene() {
   return (
-    <div className="canvas-container">
-      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-        <ambientLight intensity={0.2} />
-        <pointLight position={[10, 10, 10]} intensity={0.8} color="#ffffff" />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} color="#b026ff" />
+    <div className="relative w-full h-full">
+      {/* Canvas Background */}
+      <div className="canvas-container fixed inset-0 -z-10">
+        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+          <ambientLight intensity={0.2} />
+          <pointLight position={[10, 10, 10]} intensity={0.8} color="#ffffff" />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#b026ff" />
 
-        <Particles count={2000} />
-        <FloatingOrbs />
-        <Stars radius={100} depth={50} count={1000} factor={4} fade speed={1} />
+          <Particles count={2000} />
+          <FloatingOrbs />
+          <Stars radius={100} depth={50} count={1000} factor={4} fade speed={1} />
 
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          enableRotate={true}
-          rotateSpeed={0.1}
-          autoRotate
-          autoRotateSpeed={0.1}
-        />
-      </Canvas>
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            enableRotate={true}
+            rotateSpeed={0.1}
+            autoRotate
+            autoRotateSpeed={0.1}
+          />
+        </Canvas>
+      </div>
+
+      {/* Subtle blur overlay */}
+      <div className="absolute inset-0 backdrop-blur-sm bg-black/20 z-10 pointer-events-none" />
     </div>
   )
 }
