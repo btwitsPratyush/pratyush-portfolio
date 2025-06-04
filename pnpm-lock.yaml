@@ -95,6 +95,9 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: 1.1.6
         version: 1.1.6(@types/react-dom@18.0.0)(@types/react@18.0.0)(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
+      '@react-spring/three':
+        specifier: latest
+        version: 10.0.1(0f9fd63f9d56fee2d772087fcde65902)
       '@react-three/drei':
         specifier: latest
         version: 10.1.2(b2d19dedfa3753e0143c92e2229397f1)
@@ -1674,6 +1677,34 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  '@react-spring/animated@10.0.1':
+    resolution: {integrity: sha512-BGL3hA66Y8Qm3KmRZUlfG/mFbDPYajgil2/jOP0VXf2+o2WPVmcDps/eEgdDqgf5Pv9eBbyj7LschLMuSjlW3Q==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@react-spring/core@10.0.1':
+    resolution: {integrity: sha512-KaMMsN1qHuVTsFpg/5ajAVye7OEqhYbCq0g4aKM9bnSZlDBBYpO7Uf+9eixyXN8YEbF+YXaYj9eoWDs+npZ+sA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@react-spring/rafz@10.0.1':
+    resolution: {integrity: sha512-UrzG/d6Is+9i0aCAjsjWRqIlFFiC4lFqFHrH63zK935z2YDU95TOFio4VKGISJ5SG0xq4ULy7c1V3KU+XvL+Yg==}
+
+  '@react-spring/shared@10.0.1':
+    resolution: {integrity: sha512-KR2tmjDShPruI/GGPfAZOOLvDgkhFseabjvxzZFFggJMPkyICLjO0J6mCIoGtdJSuHywZyc4Mmlgi+C88lS00g==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@react-spring/three@10.0.1':
+    resolution: {integrity: sha512-JAgA573EqG1WkDGameWv0HYlPL5KYwVCRhXroBq5Ed0Chc9xXuAZU8fyNg9/uup8Pc32iGSW0PHRt0msvPNg+w==}
+    peerDependencies:
+      '@react-three/fiber': '>=6.0'
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      three: '>=0.126'
+
+  '@react-spring/types@10.0.1':
+    resolution: {integrity: sha512-Fk1wYVAKL+ZTYK+4YFDpHf3Slsy59pfFFvnnTfRjQQFGlyIo4VejPtDs3CbDiuBjM135YztRyZjIH2VbycB+ZQ==}
 
   '@react-three/drei@10.1.2':
     resolution: {integrity: sha512-CCcLAqZEvYiUErOcJgGzovY3RH6KgdrqD4ubeAx1nyGbSPLnKR9a8ynYbPdtZhIyiWqGc07z+RYQzpaOfN4ZIA==}
@@ -6064,6 +6095,39 @@ snapshots:
       react-native: 0.79.2(@babel/core@7.27.4)(@types/react@18.0.0)(react@18.0.0)
     optionalDependencies:
       '@types/react': 18.0.0
+
+  '@react-spring/animated@10.0.1(react@18.0.0)':
+    dependencies:
+      '@react-spring/shared': 10.0.1(react@18.0.0)
+      '@react-spring/types': 10.0.1
+      react: 18.0.0
+
+  '@react-spring/core@10.0.1(react@18.0.0)':
+    dependencies:
+      '@react-spring/animated': 10.0.1(react@18.0.0)
+      '@react-spring/shared': 10.0.1(react@18.0.0)
+      '@react-spring/types': 10.0.1
+      react: 18.0.0
+
+  '@react-spring/rafz@10.0.1': {}
+
+  '@react-spring/shared@10.0.1(react@18.0.0)':
+    dependencies:
+      '@react-spring/rafz': 10.0.1
+      '@react-spring/types': 10.0.1
+      react: 18.0.0
+
+  '@react-spring/three@10.0.1(0f9fd63f9d56fee2d772087fcde65902)':
+    dependencies:
+      '@react-spring/animated': 10.0.1(react@18.0.0)
+      '@react-spring/core': 10.0.1(react@18.0.0)
+      '@react-spring/shared': 10.0.1(react@18.0.0)
+      '@react-spring/types': 10.0.1
+      '@react-three/fiber': 9.1.2(@types/react@18.0.0)(expo-asset@11.1.5(expo@53.0.9(@babel/core@7.27.4)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@18.0.0)(react@18.0.0))(react@18.0.0))(react-native@0.79.2(@babel/core@7.27.4)(@types/react@18.0.0)(react@18.0.0))(react@18.0.0))(expo-file-system@18.1.10(expo@53.0.9(@babel/core@7.27.4)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@18.0.0)(react@18.0.0))(react@18.0.0))(react-native@0.79.2(@babel/core@7.27.4)(@types/react@18.0.0)(react@18.0.0)))(expo-gl@15.1.5(expo@53.0.9(@babel/core@7.27.4)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@18.0.0)(react@18.0.0))(react@18.0.0))(react-native@0.79.2(@babel/core@7.27.4)(@types/react@18.0.0)(react@18.0.0))(react@18.0.0))(expo@53.0.9(@babel/core@7.27.4)(react-native@0.79.2(@babel/core@7.27.4)(@types/react@18.0.0)(react@18.0.0))(react@18.0.0))(react-dom@18.0.0(react@18.0.0))(react-native@0.79.2(@babel/core@7.27.4)(@types/react@18.0.0)(react@18.0.0))(react@18.0.0)(three@0.177.0)
+      react: 18.0.0
+      three: 0.177.0
+
+  '@react-spring/types@10.0.1': {}
 
   '@react-three/drei@10.1.2(b2d19dedfa3753e0143c92e2229397f1)':
     dependencies:

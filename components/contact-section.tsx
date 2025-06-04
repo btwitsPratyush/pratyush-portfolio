@@ -3,7 +3,6 @@
 import { motion } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Mail, Github, Linkedin, ExternalLink } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 
 // Custom X (formerly Twitter) icon component
@@ -16,45 +15,49 @@ const XIcon = ({ className }: { className?: string }) => (
 const socialLinks = [
   {
     name: "Email",
-    icon: <Mail className="h-4 w-4 sm:h-5 sm:w-5" />,
+    icon: <Mail size={20} className="text-pink-400 sm:w-6 sm:h-6" />,
     href: "mailto:pratyushk537@gmail.com",
     label: "pratyushk537@gmail.com",
-    description: "Send me an email",
+    color: "text-pink-400",
+    hoverColor: "hover:text-pink-300",
   },
   {
     name: "X",
-    icon: <XIcon className="h-4 w-4 sm:h-5 sm:w-5" />,
+    icon: <XIcon className="h-5 w-5 sm:h-6 sm:w-6 text-purple-400" />,
     href: "https://X.com/btwitsPratyush",
     label: "@btwitPratyush",
-    description: "Follow me on X",
+    color: "text-purple-400",
+    hoverColor: "hover:text-purple-300",
   },
   {
     name: "GitHub",
-    icon: <Github className="h-4 w-4 sm:h-5 sm:w-5" />,
+    icon: <Github size={20} className="text-blue-400 sm:w-6 sm:h-6" />,
     href: "https://github.com/btwitsPratyush",
     label: "btwitsPratyush",
-    description: "Check out my repositories",
+    color: "text-blue-400",
+    hoverColor: "hover:text-blue-300",
   },
   {
     name: "LinkedIn",
-    icon: <Linkedin className="h-4 w-4 sm:h-5 sm:w-5" />,
+    icon: <Linkedin size={20} className="text-cyan-400 sm:w-6 sm:h-6" />,
     href: "https://www.linkedin.com/in/pratyush-kumar-3302b0229",
     label: "Pratyush Kumar",
-    description: "Connect professionally",
+    color: "text-cyan-400",
+    hoverColor: "hover:text-cyan-300",
   },
 ]
 
 export default function ContactSection() {
   const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
+    triggerOnce: false,
+    threshold: 0.1,
   })
 
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 640)
+      setIsMobile(window.innerWidth < 768)
     }
 
     checkMobile()
@@ -67,7 +70,7 @@ export default function ContactSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.2,
       },
     },
   }
@@ -78,8 +81,8 @@ export default function ContactSection() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.3,
-        ease: "easeOut",
+        type: "spring",
+        stiffness: 100,
       },
     },
   }
@@ -108,78 +111,49 @@ export default function ContactSection() {
           animate={inView ? "visible" : "hidden"}
           className="max-w-4xl mx-auto"
         >
-          {isMobile ? (
-            // Mobile-optimized compact contact list
-            <div className="contact-container-mobile">
-              {socialLinks.map((link, index) => (
-                <motion.div key={link.name} variants={itemVariants} className="contact-item-mobile">
-                  <div className="flex items-center gap-3">
-                    <div className="contact-icon-mobile">{link.icon}</div>
-                    <div>
-                      <h3 className="text-sm font-bold text-neon-purple">{link.name}</h3>
-                      <span className="text-xs text-neon-teal">{link.label}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            {socialLinks.map((link, index) => (
+              <motion.div
+                key={link.name}
+                variants={itemVariants}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                className="relative bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm border border-neon-purple/20 rounded-xl overflow-hidden shadow-lg group"
+              >
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-blue/0 to-neon-teal/0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+
+                <div className="p-4 sm:p-6">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="bg-neon-purple/20 p-2 sm:p-3 rounded-full mt-1">{link.icon}</div>
+
+                    <div className="flex-1">
+                      <h3
+                        className={`text-base sm:text-lg md:text-xl font-bold mb-1 ${link.color} ${link.hoverColor} transition-colors`}
+                      >
+                        {link.name}
+                      </h3>
+
+                      <p className="text-gray-300 mb-2 sm:mb-3 text-xs sm:text-sm break-all">{link.label}</p>
+
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm ${link.color} ${link.hoverColor} group-hover:translate-x-1 transition-all duration-200`}
+                      >
+                        Connect <ExternalLink size={12} className="sm:w-3.5 sm:h-3.5" />
+                      </a>
                     </div>
                   </div>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-neon-blue hover:text-neon-purple transition-colors"
-                  >
-                    <ExternalLink size={14} />
-                  </a>
-                </motion.div>
-              ))}
-            </div>
-          ) : (
-            // Desktop version with cards
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-              {socialLinks.map((link, index) => (
-                <motion.div
-                  key={link.name}
-                  variants={itemVariants}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  className="relative bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm border border-neon-purple/20 rounded-xl overflow-hidden shadow-lg group"
-                >
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-blue/0 to-neon-teal/0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                </div>
 
-                  <div className="p-4 sm:p-6">
-                    <div className="flex items-start gap-3 sm:gap-4">
-                      <div className="bg-neon-purple/20 p-2 sm:p-3 rounded-full mt-1">{link.icon}</div>
-
-                      <div className="flex-1">
-                        <h3 className="text-base sm:text-lg md:text-xl font-bold mb-1 group-hover:text-neon-purple transition-colors">
-                          {link.name}
-                        </h3>
-
-                        <div className="text-gray-300 mb-2 sm:mb-3">
-                          <span className="text-neon-teal text-xs sm:text-sm">{link.label}</span>
-                        </div>
-
-                        <p className="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3">{link.description}</p>
-
-                        <Button
-                          variant="ghost"
-                          className="p-0 h-auto text-neon-blue hover:text-neon-purple flex items-center gap-1 sm:gap-2 group-hover:translate-x-1 transition-transform text-xs sm:text-sm"
-                          asChild
-                        >
-                          <a href={link.href} target="_blank" rel="noopener noreferrer">
-                            Connect <ExternalLink size={12} className="sm:w-3.5 sm:h-3.5" />
-                          </a>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Decorative corner accent */}
-                  <div className="absolute top-0 right-0 w-12 h-12 sm:w-16 sm:h-16 overflow-hidden">
-                    <div className="absolute transform rotate-45 bg-neon-purple/20 text-neon-purple w-16 h-4 sm:w-24 sm:h-5 -right-4 top-4 sm:-right-6 sm:top-6"></div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          )}
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-12 h-12 sm:w-16 sm:h-16 overflow-hidden">
+                  <div className="absolute transform rotate-45 bg-neon-purple/20 text-neon-purple w-16 h-4 sm:w-24 sm:h-5 -right-4 top-4 sm:-right-6 sm:top-6"></div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

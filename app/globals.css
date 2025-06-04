@@ -32,11 +32,14 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
+    background: #000000;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   html {
@@ -59,7 +62,6 @@
 
 .card-gradient {
   background: linear-gradient(135deg, rgba(30, 30, 40, 0.8), rgba(15, 15, 25, 0.9));
-  backdrop-filter: blur(10px);
   border: 1px solid rgba(176, 38, 255, 0.2);
 }
 
@@ -70,8 +72,37 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  will-change: auto;
+  background: #000000;
+  will-change: transform;
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+}
+
+/* Subtle backdrop blur for content sections */
+.backdrop-blur-sm {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* Mobile optimization for backdrop blur */
+@media (max-width: 768px) {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+  }
+}
+
+/* Ultra low-end device optimization */
+@media (max-width: 480px) and (max-device-width: 480px) {
+  .backdrop-blur-sm {
+    backdrop-filter: blur(0.5px);
+    -webkit-backdrop-filter: blur(0.5px);
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 }
 
 .section {
@@ -97,35 +128,35 @@
   will-change: auto;
 }
 
-/* Proper waving animation for hand emoji */
+/* Faster waving animation for hand emoji */
 .wave-hand {
   display: inline-block;
   transform-origin: 70% 70%;
-  animation: proper-wave 2.5s ease-in-out infinite;
+  animation: fast-wave 1.8s ease-in-out infinite;
   transform: translateZ(0);
   will-change: transform;
 }
 
-@keyframes proper-wave {
+@keyframes fast-wave {
   0% {
     transform: rotate(0deg);
   }
-  10% {
+  8% {
     transform: rotate(14deg);
   }
-  20% {
+  16% {
     transform: rotate(-8deg);
   }
-  30% {
+  24% {
     transform: rotate(14deg);
   }
-  40% {
+  32% {
     transform: rotate(-4deg);
   }
-  50% {
+  40% {
     transform: rotate(10deg);
   }
-  60% {
+  48% {
     transform: rotate(0deg);
   }
   100% {
@@ -149,54 +180,17 @@
   }
 }
 
-/* Mobile optimizations for performance */
+/* Mobile optimizations for performance while keeping beauty */
 @media (max-width: 768px) {
   .section {
     min-height: auto;
-    padding: 2rem 0;
+    padding: 1.5rem 0;
   }
 
-  /* Lighter wave animation on mobile */
+  /* Keep all visual effects on mobile */
   .wave-hand {
-    animation: mobile-wave 3s ease-in-out infinite;
-  }
-
-  @keyframes mobile-wave {
-    0% {
-      transform: rotate(0deg);
-    }
-    15% {
-      transform: rotate(12deg);
-    }
-    30% {
-      transform: rotate(-6deg);
-    }
-    45% {
-      transform: rotate(12deg);
-    }
-    60% {
-      transform: rotate(-3deg);
-    }
-    75% {
-      transform: rotate(8deg);
-    }
-    90% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
-  }
-
-  /* Optimize all animations for mobile */
-  * {
-    animation-duration: 0.3s !important;
-    transition-duration: 0.2s !important;
-  }
-
-  /* Override for specific animations we want to keep */
-  .wave-hand {
-    animation-duration: 3s !important;
+    animation: fast-wave 1.8s ease-in-out infinite !important;
+    animation-duration: 1.8s !important;
   }
 
   .scroll-indicator .animate-bounce {
@@ -232,6 +226,12 @@
   .wave-hand {
     animation: none !important;
   }
+
+  /* Remove blur for users who prefer reduced motion */
+  .backdrop-blur-sm {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 /* Smooth scrolling optimization */
@@ -246,21 +246,26 @@
   }
 }
 
-/* Mobile contact section styles - Fixed CSS syntax */
-@layer components {
-  .contact-container-mobile {
-    @apply bg-black/40 backdrop-blur-sm border border-neon-purple/20 rounded-xl overflow-hidden;
-  }
+/* Elegant spacing and typography */
+.elegant-spacing {
+  letter-spacing: 0.025em;
+  line-height: 1.6;
+}
 
-  .contact-item-mobile {
-    @apply py-3 px-4 border-b border-neon-purple/20 bg-transparent shadow-none rounded-none flex items-center justify-between;
-  }
+.elegant-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
 
-  .contact-item-mobile:last-child {
-    @apply border-b-0;
+@media (min-width: 640px) {
+  .elegant-container {
+    padding: 0 2rem;
   }
+}
 
-  .contact-icon-mobile {
-    @apply p-2 bg-neon-purple/20 rounded-full;
-  }
+/* Performance optimizations */
+.performance-optimized {
+  contain: layout style paint;
+  content-visibility: auto;
 }
