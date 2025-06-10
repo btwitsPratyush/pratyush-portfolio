@@ -15,7 +15,7 @@ const XIcon = ({ className }: { className?: string }) => (
 const socialLinks = [
   {
     name: "Email",
-    icon: <Mail size={20} className="text-pink-400 sm:w-6 sm:h-6" />,
+    icon: <Mail className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "mailto:pratyushk537@gmail.com",
     label: "pratyushk537@gmail.com",
     color: "text-pink-400",
@@ -23,7 +23,7 @@ const socialLinks = [
   },
   {
     name: "X",
-    icon: <XIcon className="h-5 w-5 sm:h-6 sm:w-6 text-purple-400" />,
+    icon: <XIcon className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "https://X.com/btwitsPratyush",
     label: "@btwitPratyush",
     color: "text-purple-400",
@@ -31,7 +31,7 @@ const socialLinks = [
   },
   {
     name: "GitHub",
-    icon: <Github size={20} className="text-blue-400 sm:w-6 sm:h-6" />,
+    icon: <Github className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "https://github.com/btwitsPratyush",
     label: "btwitsPratyush",
     color: "text-blue-400",
@@ -39,7 +39,7 @@ const socialLinks = [
   },
   {
     name: "LinkedIn",
-    icon: <Linkedin size={20} className="text-cyan-400 sm:w-6 sm:h-6" />,
+    icon: <Linkedin className="h-5 w-5 sm:h-6 sm:w-6" />,
     href: "https://www.linkedin.com/in/pratyush-kumar-3302b0229",
     label: "Pratyush Kumar",
     color: "text-cyan-400",
@@ -49,8 +49,8 @@ const socialLinks = [
 
 export default function ContactSection() {
   const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
+    triggerOnce: true,
+    threshold: 0.2,
   })
 
   const [isMobile, setIsMobile] = useState(false)
@@ -70,36 +70,36 @@ export default function ContactSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: isMobile ? 0.05 : 0.1,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
-        stiffness: 100,
+        duration: isMobile ? 0.2 : 0.4,
+        ease: "easeOut",
       },
     },
   }
 
   return (
-    <section id="contact" className="section">
-      <div className="container mx-auto px-4 py-12 sm:py-16 md:py-20">
+    <section id="contact" className="section performance-optimized">
+      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
+          className="text-center mb-8 sm:mb-12"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 text-gradient">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gradient elegant-spacing">
             Let's Connect
           </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto px-4">
+          <p className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl mx-auto px-4 elegant-spacing">
             Get in touch with me through these platforms
           </p>
         </motion.div>
@@ -111,46 +111,42 @@ export default function ContactSection() {
           animate={inView ? "visible" : "hidden"}
           className="max-w-4xl mx-auto"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          {/* Optimized grid layout */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {socialLinks.map((link, index) => (
-              <motion.div
-                key={link.name}
-                variants={itemVariants}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                className="relative bg-gradient-to-br from-black/60 to-black/40 backdrop-blur-sm border border-neon-purple/20 rounded-xl overflow-hidden shadow-lg group"
-              >
-                {/* Glow effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-neon-purple/0 via-neon-blue/0 to-neon-teal/0 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-
-                <div className="p-4 sm:p-6">
-                  <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="bg-neon-purple/20 p-2 sm:p-3 rounded-full mt-1">{link.icon}</div>
-
-                    <div className="flex-1">
-                      <h3
-                        className={`text-base sm:text-lg md:text-xl font-bold mb-1 ${link.color} ${link.hoverColor} transition-colors`}
-                      >
-                        {link.name}
-                      </h3>
-
-                      <p className="text-gray-300 mb-2 sm:mb-3 text-xs sm:text-sm break-all">{link.label}</p>
-
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`inline-flex items-center gap-1 sm:gap-2 text-xs sm:text-sm ${link.color} ${link.hoverColor} group-hover:translate-x-1 transition-all duration-200`}
-                      >
-                        Connect <ExternalLink size={12} className="sm:w-3.5 sm:h-3.5" />
-                      </a>
-                    </div>
+              <motion.div key={link.name} variants={itemVariants} className="text-center group">
+                <motion.a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                  whileHover={isMobile ? {} : { scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {/* Optimized icon container */}
+                  <div
+                    className={`inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full bg-black/50 border border-white/10 ${link.color} ${link.hoverColor} transition-colors duration-200 mb-2 sm:mb-3`}
+                  >
+                    {link.icon}
                   </div>
-                </div>
 
-                {/* Decorative corner accent */}
-                <div className="absolute top-0 right-0 w-12 h-12 sm:w-16 sm:h-16 overflow-hidden">
-                  <div className="absolute transform rotate-45 bg-neon-purple/20 text-neon-purple w-16 h-4 sm:w-24 sm:h-5 -right-4 top-4 sm:-right-6 sm:top-6"></div>
-                </div>
+                  {/* Optimized text */}
+                  <h3
+                    className={`text-sm sm:text-base md:text-lg font-semibold mb-1 ${link.color} ${link.hoverColor} transition-colors duration-200 elegant-spacing`}
+                  >
+                    {link.name}
+                  </h3>
+
+                  {/* Compact handle/email */}
+                  <p className="text-xs sm:text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-200 break-all elegant-spacing">
+                    {link.label}
+                  </p>
+
+                  {/* Subtle external link indicator */}
+                  <div className="flex items-center justify-center mt-1 sm:mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <ExternalLink size={12} className="text-gray-500" />
+                  </div>
+                </motion.a>
               </motion.div>
             ))}
           </div>
