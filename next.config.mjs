@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
-  },
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -10,11 +7,11 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: [],
-    formats: ['image/webp', 'image/avif'],
-    unoptimized: false,
+    unoptimized: true,
   },
-  transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],
+  output: 'export',
+  trailingSlash: true,
+  distDir: 'out',
 }
 
 export default nextConfig

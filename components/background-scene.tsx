@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useRef, useMemo, useEffect, useState, Suspense } from "react"
+import { useRef, useMemo, useEffect, useState } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import * as THREE from "three"
 
@@ -153,20 +153,13 @@ function ClientOnlyCanvas({ children }: { children: React.ReactNode }) {
 
 export default function BackgroundScene() {
   return (
-    <div className="canvas-container">
+    <div className="fixed inset-0 -z-10 bg-gradient-to-br from-black via-purple-900/20 to-black">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,68,204,0.3)_0%,transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(176,38,255,0.3)_0%,transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_80%,rgba(0,229,229,0.2)_0%,transparent_50%)]"></div>
       <ClientOnlyCanvas>
-        <Suspense fallback={null}>
-          <color attach="background" args={["#000000"]} />
-
-          {/* Enhanced lighting */}
-          <ambientLight intensity={0.4} />
-          <pointLight position={[10, 10, 10]} intensity={0.6} color="#ff44cc" />
-          <pointLight position={[-10, -10, -10]} intensity={0.4} color="#b026ff" />
-          <pointLight position={[0, 10, -10]} intensity={0.3} color="#00e5e5" />
-
-          <BeautifulParticles count={200} />
-          <FloatingOrbs count={6} />
-        </Suspense>
+        <BeautifulParticles />
+        <FloatingOrbs />
       </ClientOnlyCanvas>
     </div>
   )
