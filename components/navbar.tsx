@@ -43,7 +43,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <motion.div className="relative w-10 h-10 rounded-full overflow-hidden" whileHover={{ scale: 1.05 }}>
-            <Image src="/profile-pic.jpg" alt="Pratyush" fill className="object-cover" />
+            <Image src="/112186388.jpg" alt="Pratyush" fill className="object-cover" />
           </motion.div>
 
           {/* Desktop Navigation */}
