@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useRef, useMemo, useEffect, useState } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import * as THREE from "three"
@@ -120,81 +122,46 @@ function FloatingOrbs({ count = 8 }) {
   )
 }
 
-export default function BackgroundScene() {
-  const [deviceInfo, setDeviceInfo] = useState({
-    isMobile: false,
-    isLowEnd: false,
-    isVeryLowEnd: false,
-  })
+// Client-only wrapper component
+function ClientOnlyCanvas({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const checkDevice = () => {
-      const mobile = window.innerWidth < 768
-      const cores = navigator.hardwareConcurrency || 4
-      const memory = (navigator as any).deviceMemory || 4
-
-      const isVeryLowEnd = mobile && (cores <= 2 || memory <= 2)
-      const isLowEnd = mobile && (cores <= 4 || memory <= 4) && !isVeryLowEnd
-
-      setDeviceInfo({
-        isMobile: mobile,
-        isLowEnd,
-        isVeryLowEnd,
-      })
-    }
-
-    checkDevice()
-    window.addEventListener("resize", checkDevice)
-    return () => window.removeEventListener("resize", checkDevice)
+    setMounted(true)
   }, [])
 
-  const particleCount = useMemo(() => {
-    if (deviceInfo.isVeryLowEnd) return 80
-    if (deviceInfo.isLowEnd) return 120
-    if (deviceInfo.isMobile) return 180
-    return 300
-  }, [deviceInfo])
-
-  const orbCount = useMemo(() => {
-    if (deviceInfo.isVeryLowEnd) return 3
-    if (deviceInfo.isLowEnd) return 5
-    if (deviceInfo.isMobile) return 6
-    return 8
-  }, [deviceInfo])
-
-  if (deviceInfo.isVeryLowEnd) {
-    return (
-      <div className="canvas-container">
-        <div className="enhanced-fallback-bg"></div>
-      </div>
-    )
+  if (!mounted) {
+    return <div className="enhanced-fallback-bg" />
   }
 
   return (
-    <div className="canvas-container">
-      <Canvas
-        camera={{ position: [0, 0, 8], fov: 65 }}
-        performance={{ min: deviceInfo.isMobile ? 0.7 : 0.8 }}
-        dpr={deviceInfo.isMobile ? [0.5, 1] : [1, 1.5]}
-        frameloop="always"
-        gl={{
-          antialias: !deviceInfo.isMobile,
-          powerPreference: "high-performance",
-          alpha: true,
-          premultipliedAlpha: false,
-        }}
-      >
-        <color attach="background" args={["#000000"]} />
+    <Canvas
+      camera={{ position: [0, 0, 8], fov: 65 }}
+      dpr={[0.5, 1.5]}
+      frameloop="always"
+      gl={{
+        antialias: false,
+        powerPreference: "high-performance",
+        alpha: true,
+        premultipliedAlpha: false,
+      }}
+    >
+      {children}
+    </Canvas>
+  )
+}
 
-        {/* Enhanced lighting */}
-        <ambientLight intensity={0.4} />
-        <pointLight position={[10, 10, 10]} intensity={0.6} color="#ff44cc" />
-        <pointLight position={[-10, -10, -10]} intensity={0.4} color="#b026ff" />
-        <pointLight position={[0, 10, -10]} intensity={0.3} color="#00e5e5" />
-
-        <BeautifulParticles count={particleCount} />
-        <FloatingOrbs count={orbCount} />
-      </Canvas>
+export default function BackgroundScene() {
+  return (
+    <div className="fixed inset-0 -z-10">
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,68,204,0.3)_0%,transparent_50%)] animate-pulse"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(176,38,255,0.3)_0%,transparent_50%)] animate-pulse delay-1000"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_80%,rgba(0,229,229,0.2)_0%,transparent_50%)] animate-pulse delay-2000"></div>
+      <ClientOnlyCanvas>
+        <BeautifulParticles />
+        <FloatingOrbs />
+      </ClientOnlyCanvas>
     </div>
   )
 }

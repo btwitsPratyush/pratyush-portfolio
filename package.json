@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
-    "@react-spring/three": "^9.7.3",
-    "@react-three/drei": "^9.92.7",
     "@react-three/fiber": "latest",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -33,7 +31,6 @@
     "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/three": "^0.160.0",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",

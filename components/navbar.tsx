@@ -21,15 +21,12 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 10
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled)
-      }
+      setScrolled(window.scrollY > 50)
     }
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [scrolled])
+  }, [])
 
   return (
     <motion.nav
@@ -42,7 +39,10 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <motion.div className="relative w-10 h-10 rounded-full overflow-hidden" whileHover={{ scale: 1.05 }}>
+          <motion.div
+            className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-purple-500/50"
+            whileHover={{ scale: 1.05 }}
+          >
             <Image src="/112186388.jpg" alt="Pratyush" fill className="object-cover" />
           </motion.div>
 
@@ -52,7 +52,7 @@ export default function Navbar() {
               <motion.a
                 key={item.name}
                 href={item.href}
-                className="text-white hover:text-neon-purple transition-colors"
+                className="text-white hover:text-purple-400 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-white hover:text-neon-purple py-2 transition-colors"
+                  className="text-white hover:text-purple-400 py-2 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
