@@ -153,11 +153,10 @@ function ClientOnlyCanvas({ children }: { children: React.ReactNode }) {
 
 export default function BackgroundScene() {
   return (
-    <div className="fixed inset-0 -z-10">
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,68,204,0.3)_0%,transparent_50%)] animate-pulse"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(176,38,255,0.3)_0%,transparent_50%)] animate-pulse delay-1000"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_80%,rgba(0,229,229,0.2)_0%,transparent_50%)] animate-pulse delay-2000"></div>
+    <div className="fixed inset-0 -z-10 bg-gradient-to-br from-black via-purple-900/20 to-black">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(255,68,204,0.3)_0%,transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(176,38,255,0.3)_0%,transparent_50%)]"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_80%,rgba(0,229,229,0.2)_0%,transparent_50%)]"></div>
       <ClientOnlyCanvas>
         <BeautifulParticles />
         <FloatingOrbs />

@@ -56,6 +56,9 @@ importers:
       tailwind-merge:
         specifier: ^2.5.5
         version: 2.5.5
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.3.0(postcss@8.5.0))
       three:
         specifier: latest
         version: 0.177.0
@@ -84,9 +87,6 @@ importers:
       tailwindcss:
         specifier: ^3.3.0
         version: 3.3.0(postcss@8.5.0)
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.3.0(postcss@8.5.0))
       typescript:
         specifier: ^5
         version: 5.0.2
