@@ -17,13 +17,14 @@ const nextConfig = {
   transpilePackages: ['three', '@react-three/fiber', '@react-three/drei', '@react-spring/three'],
   webpack: (config, { isServer }) => {
     if (isServer) {
-      // Exclude Three.js and related libraries from the server bundle
-      config.externals.push(
-        'three',
-        '@react-three/fiber',
-        '@react-three/drei',
-        '@react-spring/three'
-      );
+      // Explicitly prevent Three.js and related libraries from being bundled on the server
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'three': false,
+        '@react-three/fiber': false,
+        '@react-three/drei': false,
+        '@react-spring/three': false,
+      };
     }
     return config;
   },
