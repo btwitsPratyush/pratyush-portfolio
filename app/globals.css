@@ -37,7 +37,7 @@
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
-    background: radial-gradient(ellipse at center, #0a0a0f 0%, #000000 70%);
+    background: radial-gradient(ellipse at center, #0a0a0f 0%, #000000 70%); /* Keep this background */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -92,44 +92,9 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.canvas-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: radial-gradient(ellipse at center, #0a0a0f 0%, #000000 70%);
-  will-change: transform;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000;
-  -webkit-backface-visibility: hidden;
-  -webkit-perspective: 1000;
-}
+/* Removed: .canvas-container */
 
-/* Enhanced fallback background */
-.enhanced-fallback-bg {
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 20% 30%, rgba(255, 68, 204, 0.2) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(176, 38, 255, 0.2) 0%, transparent 40%),
-    radial-gradient(circle at 40% 80%, rgba(0, 229, 229, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 60% 20%, rgba(255, 107, 157, 0.1) 0%, transparent 40%),
-    linear-gradient(135deg, #0a0a0f 0%, #000000 100%);
-  animation: subtle-pulse 8s ease-in-out infinite;
-}
-
-@keyframes subtle-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
+/* Removed: .enhanced-fallback-bg */
 
 .section {
   min-height: 100vh;
@@ -292,9 +257,7 @@
     -webkit-backdrop-filter: blur(4px);
   }
 
-  .enhanced-fallback-bg {
-    animation-duration: 12s;
-  }
+  /* Removed: .enhanced-fallback-bg animation duration */
 
   /* Smaller text on very small screens */
   h1 {
@@ -370,9 +333,7 @@
     color: #b026ff;
   }
 
-  .enhanced-fallback-bg {
-    animation: none !important;
-  }
+  /* Removed: .enhanced-fallback-bg animation */
 }
 
 /* Smooth scrolling */
