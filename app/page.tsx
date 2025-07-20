@@ -7,12 +7,12 @@ import ProjectsSection from "@/components/projects-section"
 import CertificationsSection from "@/components/certifications-section"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
-import BackgroundSceneWrapper from "./background-scene-wrapper" // Re-added import
+import CSSParticleBackground from "@/components/css-particle-background" // New import
 
 export default function Home() {
   return (
     <main className="relative min-h-screen">
-      <BackgroundSceneWrapper /> {/* Re-added component */}
+      <CSSParticleBackground /> {/* New background component */}
       <Navbar />
       <HeroSection />
       <AboutSection />
