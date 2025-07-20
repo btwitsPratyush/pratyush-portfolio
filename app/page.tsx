@@ -7,12 +7,12 @@ import ProjectsSection from "@/components/projects-section"
 import CertificationsSection from "@/components/certifications-section"
 import ContactSection from "@/components/contact-section"
 import Footer from "@/components/footer"
-// Removed: import BackgroundSceneWrapper from "./background-scene-wrapper"
+import BackgroundSceneWrapper from "./background-scene-wrapper" // Re-added import
 
 export default function Home() {
   return (
     <main className="relative min-h-screen">
-      {/* Removed: <BackgroundSceneWrapper /> */}
+      <BackgroundSceneWrapper /> {/* Re-added component */}
       <Navbar />
       <HeroSection />
       <AboutSection />
